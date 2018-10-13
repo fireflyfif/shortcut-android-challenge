@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.android.myapplication.XkcdApplication;
-import com.example.android.myapplication.data.XkcdService;
 import com.example.android.myapplication.model.CurrentXkcdComic;
 
 import retrofit2.Call;

@@ -13,11 +13,9 @@ public class XkcdApplication extends Application {
     private static volatile XkcdApplication INSTANCE;
     private XkcdService xkcdService;
 
+
     // Private constructor
-    private XkcdApplication() {
-        if (INSTANCE != null) {
-            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
-        }
+    public XkcdApplication() {
     }
 
     public static XkcdApplication getInstance() {

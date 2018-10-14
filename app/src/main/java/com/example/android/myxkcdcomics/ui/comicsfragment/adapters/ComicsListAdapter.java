@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.myxkcdcomics.R;
+import com.example.android.myxkcdcomics.callbacks.OnComicClickListener;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
 import com.squareup.picasso.Picasso;
 
@@ -23,9 +24,11 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
 
     private static final String TAG = ComicsListAdapter.class.getSimpleName();
     private List<CurrentXkcdComic> comicsList;
+    private OnComicClickListener clickHandler;
 
-    public ComicsListAdapter() {
+    public ComicsListAdapter(OnComicClickListener clickHandler) {
         super(CurrentXkcdComic.DIFF_CALLBACK);
+        this.clickHandler = clickHandler;
     }
 
     @NonNull
@@ -53,7 +56,7 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
         return super.getItemCount();
     }
 
-    public class ComicItemViewHolder extends RecyclerView.ViewHolder {
+    public class ComicItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.comic_title)
         TextView comicTitle;
@@ -67,6 +70,8 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
         public ComicItemViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(this);
         }
 
         private void bindTo(CurrentXkcdComic currentComic) {
@@ -89,6 +94,12 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
 
             Log.d(TAG, "Get the title of the comics: " + comicTitleSting);
             Log.d(TAG, "Get the image path of the comics: " + comicTitleSting);
+        }
+
+        @Override
+        public void onClick(View view) {
+            CurrentXkcdComic currentComic = getItem(getAdapterPosition());
+            clickHandler.onComicClick(currentComic);
         }
     }
 }

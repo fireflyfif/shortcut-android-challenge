@@ -3,6 +3,7 @@ package com.example.android.myxkcdcomics.ui.comicsfragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,13 +17,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.myxkcdcomics.R;
+import com.example.android.myxkcdcomics.callbacks.OnComicClickListener;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
+import com.example.android.myxkcdcomics.ui.DetailComicActivity;
 import com.example.android.myxkcdcomics.ui.comicsfragment.adapters.ComicsListAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ComicsFragment extends Fragment {
+public class ComicsFragment extends Fragment implements OnComicClickListener {
+
+    private static final String COMIC_PARCEL_KEY = "comic_key";
 
     @BindView(R.id.comics_rv)
     RecyclerView comicRv;
@@ -54,14 +59,14 @@ public class ComicsFragment extends Fragment {
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         comicRv.setLayoutManager(staggeredGridLayoutManager);
-        comicsAdapter = new ComicsListAdapter();
+        comicsAdapter = new ComicsListAdapter(this);
     }
 
     /*
     Method for initializing the ViewModel
      */
     private void initCurrentComicViewModel() {
-        // Setup the RecyclerView
+        // Setup the RecyclerView first
         setRecyclerView();
 
         // Initialize the ViewModel
@@ -78,5 +83,15 @@ public class ComicsFragment extends Fragment {
 
         // Set the adapter on the Rv
         comicRv.setAdapter(comicsAdapter);
+    }
+
+    @Override
+    public void onComicClick(CurrentXkcdComic currentXkcdComic) {
+        // TODO: Create an intent for the detail view
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(COMIC_PARCEL_KEY, currentXkcdComic);
+        Intent detailIntent = new Intent(getContext(), DetailComicActivity.class);
+        detailIntent.putExtras(bundle);
+        startActivity(detailIntent);
     }
 }

@@ -39,9 +39,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            //getSupportActionBar().setTitle("XKCD Comics");
-        }
 
         setupViewPager();
         setupBottomNavStyle();

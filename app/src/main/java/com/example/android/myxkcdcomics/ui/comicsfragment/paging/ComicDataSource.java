@@ -1,4 +1,4 @@
-package com.example.android.myxkcdcomics.ui;
+package com.example.android.myxkcdcomics.ui.comicsfragment.paging;
 
 import android.arch.paging.PageKeyedDataSource;
 import android.support.annotation.NonNull;

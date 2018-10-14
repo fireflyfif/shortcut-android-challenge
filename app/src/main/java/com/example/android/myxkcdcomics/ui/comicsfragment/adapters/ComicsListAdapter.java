@@ -1,4 +1,4 @@
-package com.example.android.myxkcdcomics.ui.adapter;
+package com.example.android.myxkcdcomics.ui.comicsfragment.adapters;
 
 import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;

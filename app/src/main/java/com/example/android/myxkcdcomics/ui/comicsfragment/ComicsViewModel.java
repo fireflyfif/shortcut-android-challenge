@@ -1,4 +1,4 @@
-package com.example.android.myxkcdcomics.ui;
+package com.example.android.myxkcdcomics.ui.comicsfragment;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
@@ -8,19 +8,20 @@ import android.util.Log;
 
 import com.example.android.myxkcdcomics.AppExecutors;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
+import com.example.android.myxkcdcomics.ui.comicsfragment.paging.ComicDataSourceFactory;
 
 import static com.example.android.myxkcdcomics.utils.Constants.PAGE_SIZE;
 import static com.example.android.myxkcdcomics.utils.Constants.PREFETCH_NUMBER;
 
-public class CurrentComicViewModel extends ViewModel {
+public class ComicsViewModel extends ViewModel {
 
-    private static final String TAG = CurrentComicViewModel.class.getSimpleName();
+    private static final String TAG = ComicsViewModel.class.getSimpleName();
 
     private LiveData<PagedList<CurrentXkcdComic>> comicsData;
     private ComicDataSourceFactory comicDataSourceFactory;
 
 
-    public CurrentComicViewModel() {
+    public ComicsViewModel() {
         initCurrentComic();
     }
 

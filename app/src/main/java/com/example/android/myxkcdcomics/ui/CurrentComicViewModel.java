@@ -9,6 +9,9 @@ import android.util.Log;
 import com.example.android.myxkcdcomics.AppExecutors;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
 
+import static com.example.android.myxkcdcomics.utils.Constants.PAGE_SIZE;
+import static com.example.android.myxkcdcomics.utils.Constants.PREFETCH_NUMBER;
+
 public class CurrentComicViewModel extends ViewModel {
 
     private static final String TAG = CurrentComicViewModel.class.getSimpleName();
@@ -16,7 +19,6 @@ public class CurrentComicViewModel extends ViewModel {
     private LiveData<PagedList<CurrentXkcdComic>> comicsData;
     private ComicDataSourceFactory comicDataSourceFactory;
 
-    //private LiveData<CurrentXkcdComic> comicData;
 
     public CurrentComicViewModel() {
         initCurrentComic();
@@ -29,9 +31,9 @@ public class CurrentComicViewModel extends ViewModel {
         // Configure thePagedList.Config
         PagedList.Config pagedListConfig = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(5)
-                .setPrefetchDistance(3)
-                .setPageSize(1)
+                .setInitialLoadSizeHint(PAGE_SIZE)
+                .setPrefetchDistance(PREFETCH_NUMBER)
+                .setPageSize(PAGE_SIZE)
                 .build();
         Log.d(TAG, "PagedList config: " + pagedListConfig.pageSize);
 

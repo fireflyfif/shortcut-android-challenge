@@ -79,9 +79,6 @@ public class CurrentXkcdComic implements Parcelable {
     public CurrentXkcdComic() {
     }
 
-    public CurrentXkcdComic(Integer num) {
-        this.num = num;
-    }
 
     public String getMonth() {
         return month;

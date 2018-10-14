@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setRecyclerView() {
         StaggeredGridLayoutManager staggeredGridLayoutManager =
-                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         comicRv.setLayoutManager(staggeredGridLayoutManager);
         comicsAdapter = new ComicsListAdapter();

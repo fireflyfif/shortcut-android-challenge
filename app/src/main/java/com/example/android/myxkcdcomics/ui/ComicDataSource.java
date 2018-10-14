@@ -14,17 +14,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.android.myxkcdcomics.utils.Constants.BASE_URL;
-
 public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic> {
-
 
     private static final String TAG = ComicDataSource.class.getSimpleName();
 
+    // Variable for the comic number
     private int comicId;
-    private List<CurrentXkcdComic> comicsList = new ArrayList<>();
 
-    ComicDataSource() {}
+    ComicDataSource() {
+    }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams params, @NonNull final LoadInitialCallback callback) {
@@ -32,6 +30,7 @@ public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic>
         XkcdApplication.getInstance().getXkcdApi().getCurrentComic().enqueue(new Callback<CurrentXkcdComic>() {
 
             CurrentXkcdComic currentComic = new CurrentXkcdComic();
+            List<CurrentXkcdComic> comicsList = new ArrayList<>();
 
             @Override
             public void onResponse(@NonNull Call<CurrentXkcdComic> call,
@@ -42,22 +41,16 @@ public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic>
                     // Add recent comic to the list of comics
                     comicsList.add(currentComic);
 
-                    // TODO: Check the logic below
+                    // Get the recent number of the comic
                     comicId = currentComic.getNum();
-                    int fetchPrevious = 10;
-                    int i;
-                    // Fetch the first 3 comics starting from current (last one)
-                    for (i = comicId-1; i > (comicId - fetchPrevious) && i > 0; i--) {
-                        comicsList.add(new CurrentXkcdComic(i));
-                    }
-                    comicId = i;
+                    // Decrease the number of the comic so that it is
+                    // used in the loadAfter() method
+                    comicId = comicId - 1;
 
-                    callback.onResult(comicsList, null, 2L);
+                    callback.onResult(comicsList, null, comicId);
 
                     Log.d(TAG, "List of comics loadInitial: " + comicsList.size());
-
                 } else {
-
                     Log.d(TAG, "Response code from initial load: " + response.code());
                 }
             }
@@ -71,31 +64,38 @@ public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic>
 
     @Override
     public void loadBefore(@NonNull LoadParams params, @NonNull LoadCallback callback) {
-
+        // Ignore this, because we don't need to load anything before the initial load of data
     }
 
     @Override
     public void loadAfter(@NonNull final LoadParams params, @NonNull final LoadCallback callback) {
-
-        String baseUrl = BASE_URL;
-        String endpointOfUrl = "/info.0.json";
-        String newUrl = baseUrl + comicId + endpointOfUrl;
-        Log.d(TAG, "New url: " + newUrl);
-
-
-        Log.d(TAG, "Comic number after for loop: " + comicId);
+        Log.i(TAG, "loadAfter: Loading: " + params.key + " Count: " + params.requestedLoadSize + " ComicId: " + comicId);
 
         XkcdApplication.getInstance().getXkcdApi().getComicById(comicId).enqueue(new Callback<CurrentXkcdComic>() {
 
             CurrentXkcdComic currentComic = new CurrentXkcdComic();
+            List<CurrentXkcdComic> comicsListAfter = new ArrayList<>();
 
             @Override
             public void onResponse(@NonNull Call<CurrentXkcdComic> call, @NonNull Response<CurrentXkcdComic> response) {
                 if (response.isSuccessful()) {
                     currentComic = response.body();
 
-                    callback.onResult(comicsList, comicId);
-                    Log.d(TAG, "List of comics, loadAfter: " + comicsList.size());
+                    if (currentComic != null) {
+                        // Decrement the comicId by 1
+                        comicId--;
+
+                        // Stop when the comic number reach 1
+                        if (comicId == 1) {
+                            return;
+                        }
+
+                        // Add comics to the new list of comics
+                        comicsListAfter.add(currentComic);
+                        Log.d(TAG, "loadAfter: Comic number after decrease: " + comicId);
+                        callback.onResult(comicsListAfter, comicId);
+                        Log.d(TAG, "loadAfter: List of comics, loadAfter: " + comicsListAfter.size());
+                    }
                 }
             }
 

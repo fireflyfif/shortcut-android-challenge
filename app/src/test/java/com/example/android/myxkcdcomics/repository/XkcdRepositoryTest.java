@@ -1,9 +1,9 @@
-package com.example.android.myapplication.repository;
+package com.example.android.myxkcdcomics.repository;
 
 import android.arch.lifecycle.LiveData;
 
-import com.example.android.myapplication.data.XkcdService;
-import com.example.android.myapplication.model.CurrentXkcdComic;
+import com.example.android.myxkcdcomics.data.XkcdService;
+import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 
 public class XkcdRepositoryTest {

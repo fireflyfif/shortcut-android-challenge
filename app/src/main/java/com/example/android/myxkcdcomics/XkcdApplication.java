@@ -1,9 +1,9 @@
-package com.example.android.myapplication;
+package com.example.android.myxkcdcomics;
 
 import android.app.Application;
 
-import com.example.android.myapplication.data.XkcdApiManager;
-import com.example.android.myapplication.data.XkcdService;
+import com.example.android.myxkcdcomics.data.XkcdApiManager;
+import com.example.android.myxkcdcomics.data.XkcdService;
 
 // Singleton class that extends the Application.
 // The Application is the first context to be created and the last to be destroyed. Thus,

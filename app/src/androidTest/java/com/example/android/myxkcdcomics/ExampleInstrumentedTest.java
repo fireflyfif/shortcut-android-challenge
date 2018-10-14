@@ -1,4 +1,4 @@
-package com.example.android.myapplication;
+package com.example.android.myxkcdcomics;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

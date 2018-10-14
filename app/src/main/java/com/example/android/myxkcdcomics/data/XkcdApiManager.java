@@ -1,4 +1,4 @@
-package com.example.android.myapplication.data;
+package com.example.android.myxkcdcomics.data;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -6,9 +6,9 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class XkcdApiManager {
+import static com.example.android.myxkcdcomics.utils.Constants.BASE_URL;
 
-    private static final String BASE_URL = "https://xkcd.com/";
+public class XkcdApiManager {
 
     /**
      * Method that creates the Retrofit instance that will make the call to the API

@@ -1,10 +1,11 @@
-package com.example.android.myapplication.data;
+package com.example.android.myxkcdcomics.data;
 
-import com.example.android.myapplication.model.CurrentXkcdComic;
+import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 public interface XkcdService {
 
@@ -19,4 +20,7 @@ public interface XkcdService {
      */
     @GET("{comicsId}/info.0.json")
     Call<CurrentXkcdComic> getComicById(@Path("comicsId") long comicsId);
+
+    @GET
+    Call<CurrentXkcdComic> getComicByNum(@Url String comicsNum);
 }

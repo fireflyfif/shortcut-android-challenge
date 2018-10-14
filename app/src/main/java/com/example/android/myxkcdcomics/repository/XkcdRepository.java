@@ -1,12 +1,12 @@
-package com.example.android.myapplication.repository;
+package com.example.android.myxkcdcomics.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.android.myapplication.XkcdApplication;
-import com.example.android.myapplication.model.CurrentXkcdComic;
+import com.example.android.myxkcdcomics.XkcdApplication;
+import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
 
 import retrofit2.Call;
 import retrofit2.Callback;

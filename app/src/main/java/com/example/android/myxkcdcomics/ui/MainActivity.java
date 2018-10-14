@@ -1,24 +1,19 @@
-package com.example.android.myapplication.ui;
+package com.example.android.myxkcdcomics.ui;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
-import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.android.myapplication.R;
-import com.example.android.myapplication.model.CurrentXkcdComic;
-import com.example.android.myapplication.ui.adapter.ComicsListAdapter;
-import com.squareup.picasso.Picasso;
+import com.example.android.myxkcdcomics.R;
+import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
+import com.example.android.myxkcdcomics.ui.adapter.ComicsListAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Initialize the ViewModel
-        viewModel = ViewModelProviders.of(this).get(CurrentComicViewModel.class);
-
-        // Initialize the ViewModel
         initCurrentComicViewModel();
     }
 
@@ -55,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         comicRv.setLayoutManager(staggeredGridLayoutManager);
         comicsAdapter = new ComicsListAdapter();
-
     }
 
     /*
@@ -64,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private void initCurrentComicViewModel() {
         // Setup the RecyclerView
         setRecyclerView();
+
+        // Initialize the ViewModel
+        viewModel = ViewModelProviders.of(this).get(CurrentComicViewModel.class);
 
         viewModel.getCurrentComic().observe(this, new Observer<PagedList<CurrentXkcdComic>>() {
             @Override

@@ -1,4 +1,4 @@
-package com.example.android.myapplication.ui.adapter;
+package com.example.android.myxkcdcomics.ui.adapter;
 
 import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.myapplication.R;
-import com.example.android.myapplication.model.CurrentXkcdComic;
+import com.example.android.myxkcdcomics.R;
+import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -57,6 +57,8 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
 
         @BindView(R.id.comic_title)
         TextView comicTitle;
+        @BindView(R.id.comic_number)
+        TextView comicNumber;
         @BindView(R.id.comic_image)
         ImageView comicImage;
 
@@ -66,6 +68,9 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
         }
 
         private void bindTo(CurrentXkcdComic currentComic) {
+
+            String comicNimString = String.valueOf(currentComic.getNum());
+            comicNumber.setText(comicNimString);
 
             String comicTitleSting = currentComic.getTitle();
             comicTitle.setText(comicTitleSting);

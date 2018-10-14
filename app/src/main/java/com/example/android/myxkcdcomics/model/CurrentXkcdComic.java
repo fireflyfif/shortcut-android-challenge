@@ -1,4 +1,4 @@
-package com.example.android.myapplication.model;
+package com.example.android.myxkcdcomics.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

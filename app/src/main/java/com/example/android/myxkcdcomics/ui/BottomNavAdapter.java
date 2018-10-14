@@ -1,5 +1,6 @@
 package com.example.android.myxkcdcomics.ui;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,6 +14,22 @@ public class BottomNavAdapter extends FragmentPagerAdapter {
 
     public BottomNavAdapter(FragmentManager fm) {
         super(fm);
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 0:
+                return "Comics";
+            case 1:
+                return "Search";
+            case 2:
+                return "Favorites";
+            default:
+                break;
+        }
+        return null;
     }
 
     public void addFragments(Fragment fragment) {

@@ -11,8 +11,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.AppCompat.DayNight">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -28,6 +27,7 @@
         android:id="@+id/content_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorBackground"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.aurelhubert.ahbottomnavigation.AHBottomNavigation

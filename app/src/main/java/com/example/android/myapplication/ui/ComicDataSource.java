@@ -19,16 +19,20 @@ public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic>
 
     private static final String TAG = ComicDataSource.class.getSimpleName();
 
-    public ComicDataSource() {
+    private XkcdApplication appController;
+    private int comicId;
+    private List<CurrentXkcdComic> comicsList = new ArrayList<>();
+
+    public ComicDataSource(XkcdApplication appController) {
+        this.appController = appController;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams params, @NonNull final LoadInitialCallback callback) {
 
-        XkcdApplication.getInstance().getXkcdApi().getCurrentComic().enqueue(new Callback<CurrentXkcdComic>() {
+        XkcdApplication.getInstance().getXkcdApi().getComicById(200).enqueue(new Callback<CurrentXkcdComic>() {
 
             CurrentXkcdComic currentComic = new CurrentXkcdComic();
-            List<CurrentXkcdComic> comicsList = new ArrayList<>();
 
             @Override
             public void onResponse(@NonNull Call<CurrentXkcdComic> call,
@@ -36,16 +40,21 @@ public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic>
                 if (response.isSuccessful()) {
                     currentComic = response.body();
 
-                    // TODO: Check the logic below
-                    long comicId = currentComic.getNum();
+                    comicsList.add(currentComic);
 
-                    for (int i = 0; i < comicId; i--) {
-                        comicsList.add(new CurrentXkcdComic(i));
+                    // TODO: Check the logic below
+                    comicId = currentComic.getNum();
+                    int fetchPrevious = 3;
+
+                    // Fetch the first 5 comics starting from current (last one)
+                    for (int i = comicId; i > (comicId - fetchPrevious) && i > 0; i--) {
+                        //comicsList.add(new CurrentXkcdComic(i));
+
                     }
 
-                    callback.onResult(comicsList, null, 2L);
+                    //callback.onResult(comicsList, null, 2L);
 
-                    Log.d(TAG, "List of comics loadInitial : " + comicsList.size());
+                    Log.d(TAG, "List of comics loadInitial: " + comicsList.size());
 
                 } else {
 
@@ -58,6 +67,7 @@ public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic>
                 Log.d(TAG, "Response code from initial load, onFailure: " + t.getMessage());
             }
         });
+
     }
 
     @Override
@@ -66,7 +76,33 @@ public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic>
     }
 
     @Override
-    public void loadAfter(@NonNull LoadParams params, @NonNull LoadCallback callback) {
+    public void loadAfter(@NonNull final LoadParams params, @NonNull final LoadCallback callback) {
 
+        XkcdApplication.getInstance().getXkcdApi().getComicById(params.requestedLoadSize).enqueue(new Callback<CurrentXkcdComic>() {
+
+            CurrentXkcdComic currentComic = new CurrentXkcdComic();
+            //List<CurrentXkcdComic> comicsList = new ArrayList<>();
+
+            @Override
+            public void onResponse(@NonNull Call<CurrentXkcdComic> call, @NonNull Response<CurrentXkcdComic> response) {
+                if (response.isSuccessful()) {
+                    currentComic = response.body();
+                    comicsList.add(currentComic);
+
+                    long nextKey = comicId;
+                    if (nextKey > 0) {
+                        nextKey = - 1;
+                    }
+
+                    callback.onResult(comicsList, nextKey);
+                    Log.d(TAG, "List of comics, loadAfter: " + comicsList.size());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CurrentXkcdComic> call, @NonNull Throwable t) {
+                Log.d(TAG, "Response code from initial load, onFailure: " + t.getMessage());
+            }
+        });
     }
 }

@@ -87,7 +87,7 @@ public class CurrentXkcdComic implements Parcelable {
         return month;
     }
 
-    public long getNum() {
+    public Integer getNum() {
         return num;
     }
 

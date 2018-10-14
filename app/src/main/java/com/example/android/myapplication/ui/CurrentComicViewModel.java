@@ -1,27 +1,50 @@
 package com.example.android.myapplication.ui;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+import android.arch.paging.LivePagedListBuilder;
+import android.arch.paging.PagedList;
+import android.util.Log;
 
+import com.example.android.myapplication.AppExecutors;
+import com.example.android.myapplication.XkcdApplication;
 import com.example.android.myapplication.model.CurrentXkcdComic;
-import com.example.android.myapplication.repository.XkcdRepository;
 
-public class CurrentComicViewModel extends ViewModel {
+public class CurrentComicViewModel extends AndroidViewModel {
 
-    private LiveData<CurrentXkcdComic> comicData;
+    private static final String TAG = CurrentComicViewModel.class.getSimpleName();
 
-    public CurrentComicViewModel() {
+    private LiveData<PagedList<CurrentXkcdComic>> comicsData;
+    private ComicDataSourceFactory comicDataSourceFactory;
+
+    //private LiveData<CurrentXkcdComic> comicData;
+
+    public CurrentComicViewModel(Application application) {
+        super(application);
+        initCurrentComic(application);
     }
 
-    public void initCurrentComic() {
-        if (comicData != null) {
-            return;
-        }
+    private void initCurrentComic(Application application) {
+        // Get an instance of the DataSourceFactory
+        comicDataSourceFactory = new ComicDataSourceFactory((XkcdApplication) application);
 
-        comicData = XkcdRepository.getInstance().getCurrentComics();
+        // Configure thePagedList.Config
+        PagedList.Config pagedListConfig = new PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setInitialLoadSizeHint(2)
+                .setPrefetchDistance(1)
+                .setPageSize(2)
+                .build();
+        Log.d(TAG, "PagedList config: " + pagedListConfig.pageSize);
+
+        comicsData = new LivePagedListBuilder<>(comicDataSourceFactory, pagedListConfig)
+                .setFetchExecutor(AppExecutors.getInstance().networkIO())
+                .build();
     }
 
-    public LiveData<CurrentXkcdComic> getCurrentComic() {
-        return comicData;
+    public LiveData<PagedList<CurrentXkcdComic>> getCurrentComic() {
+        return comicsData;
     }
 }

@@ -2,17 +2,22 @@ package com.example.android.myapplication.ui;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.myapplication.R;
 import com.example.android.myapplication.model.CurrentXkcdComic;
+import com.example.android.myapplication.ui.adapter.ComicsListAdapter;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -20,10 +25,14 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.comic_title)
-    TextView comicTitle;
-    @BindView(R.id.comic_image)
-    ImageView comicImage;
+    @BindView(R.id.comics_rv)
+    RecyclerView comicRv;
+    @BindView(R.id.error_message)
+    TextView errorMessage;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
+    private ComicsListAdapter comicsAdapter;
 
 
     @Override
@@ -34,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize the ViewModel
         initCurrentComicViewModel();
+    }
+
+    private void setRecyclerView() {
+        StaggeredGridLayoutManager staggeredGridLayoutManager =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+
+        comicRv.setLayoutManager(staggeredGridLayoutManager);
+        comicsAdapter = new ComicsListAdapter(this);
 
     }
 
@@ -41,25 +58,29 @@ public class MainActivity extends AppCompatActivity {
     Method for initializing the ViewModel
      */
     private void initCurrentComicViewModel() {
+        // Setup the RecyclerView
+        setRecyclerView();
+
         // Initialize the ViewModel
         CurrentComicViewModel viewModel = ViewModelProviders.of(this)
                 .get(CurrentComicViewModel.class);
-        viewModel.initCurrentComic();
 
-        viewModel.getCurrentComic().observe(this, new Observer<CurrentXkcdComic>() {
+        viewModel.getCurrentComic().observe(this, new Observer<PagedList<CurrentXkcdComic>>() {
             @Override
-            public void onChanged(@Nullable CurrentXkcdComic currentXkcdComic) {
-                if (currentXkcdComic != null) {
-                    setupUI(currentXkcdComic);
+            public void onChanged(@Nullable PagedList<CurrentXkcdComic> currentXkcdComics) {
+                if (currentXkcdComics != null) {
+                    comicsAdapter.submitList(currentXkcdComics);
                 }
             }
         });
+
+        comicRv.setAdapter(comicsAdapter);
     }
 
     /*
     Method for setting up the UI
      */
-    private void setupUI(@NonNull CurrentXkcdComic currentXkcdComic) {
+    /*private void setupUI(@NonNull CurrentXkcdComic currentXkcdComic) {
         String comicTitleSting = currentXkcdComic.getTitle();
         comicTitle.setText(comicTitleSting);
 
@@ -69,5 +90,5 @@ public class MainActivity extends AppCompatActivity {
                 .error(R.drawable.ic_launcher_background)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(comicImage);
-    }
+    }*/
 }

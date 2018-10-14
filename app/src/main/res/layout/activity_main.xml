@@ -30,12 +30,14 @@
             android:gravity="center"
             android:padding="16dp"
             android:text="Error message"
+            android:visibility="invisible"
             android:textColor="@color/colorAccent" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:padding="10dp" />
 
     </LinearLayout>

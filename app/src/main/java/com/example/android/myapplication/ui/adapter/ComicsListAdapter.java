@@ -1,7 +1,6 @@
 package com.example.android.myapplication.ui.adapter;
 
 import android.arch.paging.PagedListAdapter;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,23 +14,26 @@ import com.example.android.myapplication.R;
 import com.example.android.myapplication.model.CurrentXkcdComic;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, RecyclerView.ViewHolder> {
 
     private static final String TAG = ComicsListAdapter.class.getSimpleName();
-    private Context context;
+    private List<CurrentXkcdComic> comicsList;
 
-    public ComicsListAdapter(Context context) {
+    public ComicsListAdapter() {
         super(CurrentXkcdComic.DIFF_CALLBACK);
-        this.context = context;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        Log.d(TAG, "onCreateViewHolder called!");
+
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.comic_item, parent, false);
 
         return new ComicItemViewHolder(view);
@@ -39,12 +41,19 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder called!");
+
         if (getItem(position) != null) {
             ((ComicItemViewHolder) holder).bindTo(getItem(position));
         }
     }
 
-    public class ComicItemViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
+
+    public class ComicItemViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.comic_title)
         TextView comicTitle;

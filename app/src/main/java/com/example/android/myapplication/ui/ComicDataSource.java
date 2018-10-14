@@ -41,6 +41,7 @@ public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic>
                     currentComic = response.body();
 
                     comicsList.add(currentComic);
+                    comicsList.add(currentComic);
 
                     // TODO: Check the logic below
                     comicId = currentComic.getNum();
@@ -48,11 +49,11 @@ public class ComicDataSource extends PageKeyedDataSource<Long, CurrentXkcdComic>
 
                     // Fetch the first 5 comics starting from current (last one)
                     for (int i = comicId; i > (comicId - fetchPrevious) && i > 0; i--) {
-                        //comicsList.add(new CurrentXkcdComic(i));
+                        comicsList.add(new CurrentXkcdComic(i));
 
                     }
 
-                    //callback.onResult(comicsList, null, 2L);
+                    callback.onResult(comicsList, null, 2L);
 
                     Log.d(TAG, "List of comics loadInitial: " + comicsList.size());
 

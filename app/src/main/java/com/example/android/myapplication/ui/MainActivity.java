@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     private ComicsListAdapter comicsAdapter;
+    private CurrentComicViewModel viewModel;
 
 
     @Override
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        // Initialize the ViewModel
+        viewModel = ViewModelProviders.of(this).get(CurrentComicViewModel.class);
 
         // Initialize the ViewModel
         initCurrentComicViewModel();
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
 
         comicRv.setLayoutManager(staggeredGridLayoutManager);
-        comicsAdapter = new ComicsListAdapter(this);
+        comicsAdapter = new ComicsListAdapter();
 
     }
 
@@ -60,10 +64,6 @@ public class MainActivity extends AppCompatActivity {
     private void initCurrentComicViewModel() {
         // Setup the RecyclerView
         setRecyclerView();
-
-        // Initialize the ViewModel
-        CurrentComicViewModel viewModel = ViewModelProviders.of(this)
-                .get(CurrentComicViewModel.class);
 
         viewModel.getCurrentComic().observe(this, new Observer<PagedList<CurrentXkcdComic>>() {
             @Override

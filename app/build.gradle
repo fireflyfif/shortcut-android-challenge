@@ -31,6 +31,9 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     // Logging Interceptor for Retrofit
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    // OkHttp and Picasso downloader for caching images
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
     // Lifecycle AAC dependencies
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'android.arch.lifecycle:viewmodel:1.1.1'

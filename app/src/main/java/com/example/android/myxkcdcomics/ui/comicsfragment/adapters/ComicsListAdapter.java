@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.example.android.myxkcdcomics.R;
 import com.example.android.myxkcdcomics.callbacks.OnComicClickListener;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -85,15 +87,40 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
             String comicYearString = currentComic.getYear();
             comicYear.setText(comicYearString);
 
-            String comicImgUrl = currentComic.getImg();
+            final String comicImgUrl = currentComic.getImg();
             Picasso.get()
                     .load(comicImgUrl)
                     .error(R.drawable.ic_launcher_background)
                     .placeholder(R.drawable.ic_launcher_background)
-                    .into(comicImage);
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(comicImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
 
-            Log.d(TAG, "Get the title of the comics: " + comicTitleSting);
-            Log.d(TAG, "Get the image path of the comics: " + comicTitleSting);
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            // Try again online if cache failed
+                            // source: https://stackoverflow.com/a/30686992/8132331
+                            Picasso.get()
+                                    .load(comicImgUrl)
+                                    .error(R.drawable.ic_launcher_background)
+                                    .placeholder(R.drawable.ic_launcher_background)
+                                    .into(comicImage, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+
+                                        }
+
+                                        @Override
+                                        public void onError(Exception e) {
+                                            Log.v(TAG, "Picasso could not fetch image.");
+                                        }
+                                    });
+                        }
+                    });
+
         }
 
         @Override

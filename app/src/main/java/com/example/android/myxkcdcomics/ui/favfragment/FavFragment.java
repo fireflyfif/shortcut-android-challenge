@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,11 @@ import butterknife.ButterKnife;
 
 public class FavFragment extends Fragment {
 
+    private static final String TAG = FavFragment.class.getSimpleName();
+
     private FavViewModel favViewModel;
     private FavComicsAdapter favAdapter;
+    private PagedList<FavComic> favComicPagedList;
 
     @BindView(R.id.fav_comics_rv)
     RecyclerView favRv;
@@ -65,6 +69,7 @@ public class FavFragment extends Fragment {
                     favProgressBar.setVisibility(View.INVISIBLE);
                     emptyMsg.setVisibility(View.INVISIBLE);
 
+                    Log.d(TAG, "Submit comics to the Adapter " + favComics.size());
                     favAdapter.submitList(favComics);
                 } else {
                     // Show the message for empty list

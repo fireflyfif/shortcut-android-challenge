@@ -154,6 +154,7 @@ public class DetailComicActivity extends AppCompatActivity {
 
     private void addComicToFavs() {
 
+
         FavComic favComic = new FavComic(monthString, numberString, linkString, yearString,
                 transcriptString, altString, imageString, titleString);
 

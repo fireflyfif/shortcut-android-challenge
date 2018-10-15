@@ -68,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.setDefaultBackgroundColor(
                 getResources().getColor(R.color.colorPrimary));
         bottomNavigation.setAccentColor(
-                getResources().getColor(R.color.colorBottomNavigationAccent));
+                getResources().getColor(R.color.colorAccent));
         bottomNavigation.setInactiveColor(
-                getResources().getColor(R.color.colorWhite));
+                getResources().getColor(R.color.colorBackground));
         bottomNavigation.setColoredModeColors(
                 (getResources().getColor(R.color.colorBottomNavigationInactive)),
-                (getResources().getColor(R.color.colorBottomNavigationAccent)));
+                (getResources().getColor(R.color.colorAccent)));
 
         bottomNavigation.setColored(false);
     }

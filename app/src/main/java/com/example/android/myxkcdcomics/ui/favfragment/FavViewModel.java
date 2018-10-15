@@ -43,7 +43,4 @@ public class FavViewModel extends AndroidViewModel {
         return favComicsList;
     }
 
-    public List<FavComic> getFavList() {
-        return xkcdRepository.getFavComicsList();
-    }
 }

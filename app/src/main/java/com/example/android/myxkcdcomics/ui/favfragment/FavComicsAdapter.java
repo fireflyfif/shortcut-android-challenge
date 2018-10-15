@@ -1,7 +1,9 @@
 package com.example.android.myxkcdcomics.ui.favfragment;
 
+import android.arch.paging.PagedList;
 import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -53,6 +55,16 @@ public class FavComicsAdapter extends PagedListAdapter<FavComic, RecyclerView.Vi
         }
 
         return super.getItemCount();
+    }
+
+    @Override
+    public void onCurrentListChanged(@Nullable PagedList<FavComic> currentList) {
+        // Set the fav list with the current list
+        favComicList = currentList;
+
+        notifyDataSetChanged();
+
+        super.onCurrentListChanged(currentList);
     }
 
     public class FavComicsViewHolder extends RecyclerView.ViewHolder {

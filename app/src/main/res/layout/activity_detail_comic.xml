@@ -52,16 +52,27 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Comic Title" />
 
+                <View
+                    android:id="@+id/accent_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/comic_detail_title" />
+
                 <TextView
                     android:id="@+id/comic_detail_number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_weight="1"
-                    android:background="@color/colorAccent"
                     android:drawableStart="@drawable/ic_number_sign"
                     android:drawableLeft="@drawable/ic_number_sign"
                     android:drawablePadding="@dimen/padding_6dp"
+                    android:gravity="center_vertical"
                     android:paddingStart="@dimen/padding_horizontal"
                     android:paddingLeft="@dimen/padding_horizontal"
                     android:paddingTop="@dimen/padding_6dp"
@@ -69,21 +80,59 @@
                     android:paddingRight="10dp"
                     android:paddingBottom="@dimen/padding_6dp"
                     android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:fontFamily="casual"
-                    app:layout_constraintEnd_toStartOf="@+id/comic_detail_year"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/comic_detail_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/accent_bg"
+                    app:layout_constraintEnd_toStartOf="@+id/comic_detail_month"
+                    app:layout_constraintStart_toStartOf="@+id/accent_bg"
+                    app:layout_constraintTop_toTopOf="@+id/accent_bg"
                     tools:text="Num" />
+
+                <TextView
+                    android:id="@+id/comic_detail_month"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_date_range_black_24dp"
+                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:drawablePadding="@dimen/padding_6dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/padding_6dp"
+                    android:paddingLeft="@dimen/padding_6dp"
+                    android:paddingTop="@dimen/padding_6dp"
+                    android:paddingEnd="@dimen/padding_6dp"
+                    android:paddingRight="@dimen/padding_6dp"
+                    android:paddingBottom="@dimen/padding_6dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="14sp"
+                    app:fontFamily="casual"
+                    app:layout_constraintBottom_toBottomOf="@+id/comic_detail_number"
+                    app:layout_constraintEnd_toStartOf="@+id/slash"
+                    app:layout_constraintTop_toTopOf="@+id/comic_detail_number"
+                    tools:text="Month" />
+
+                <TextView
+                    android:id="@+id/slash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingTop="@dimen/padding_6dp"
+                    android:paddingBottom="@dimen/padding_6dp"
+                    android:text="@string/slash_sign"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="14sp"
+                    app:fontFamily="casual"
+                    app:layout_constraintBottom_toBottomOf="@+id/comic_detail_month"
+                    app:layout_constraintEnd_toStartOf="@+id/comic_detail_year"
+                    app:layout_constraintTop_toTopOf="@+id/comic_detail_month" />
 
                 <TextView
                     android:id="@+id/comic_detail_year"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="38dp"
                     android:layout_weight="1"
-                    android:background="@color/colorAccent"
-                    android:drawableStart="@drawable/ic_date_range_black_24dp"
-                    android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                    android:gravity="center_vertical"
                     android:paddingStart="10dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="@dimen/padding_6dp"
@@ -91,10 +140,12 @@
                     android:paddingRight="@dimen/padding_horizontal"
                     android:paddingBottom="@dimen/padding_6dp"
                     android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:fontFamily="casual"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/comic_detail_number"
+                    app:layout_constraintBottom_toBottomOf="@+id/comic_detail_month"
+                    app:layout_constraintEnd_toEndOf="@+id/accent_bg"
+                    app:layout_constraintTop_toTopOf="@+id/comic_detail_month"
                     tools:text="Year" />
 
                 <ImageView
@@ -108,8 +159,9 @@
                     android:layout_marginRight="8dp"
                     android:scaleType="fitCenter"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/comic_detail_number"
+                    app:layout_constraintTop_toBottomOf="@+id/accent_bg"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
                 <TextView

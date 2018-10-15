@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My XKCD Comics</string>
+    <string name="slash_sign">/</string>
 </resources>

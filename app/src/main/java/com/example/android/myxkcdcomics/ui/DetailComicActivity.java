@@ -29,6 +29,8 @@ public class DetailComicActivity extends AppCompatActivity {
     TextView number;
     @BindView(R.id.comic_detail_year)
     TextView year;
+    @BindView(R.id.comic_detail_month)
+    TextView month;
     @BindView(R.id.comic_detail_image)
     ImageView image;
     @BindView(R.id.comic_detail_description)
@@ -62,6 +64,7 @@ public class DetailComicActivity extends AppCompatActivity {
     private void setupUI(CurrentXkcdComic currentComic) {
         String titleString = currentComic.getTitle();
         String numberString = String.valueOf(currentComic.getNum());
+        String monthString = currentComic.getMonth();
         String yearString = currentComic.getYear();
         String descriptionString = currentComic.getTranscript();
         String altString = currentComic.getAlt();
@@ -71,6 +74,7 @@ public class DetailComicActivity extends AppCompatActivity {
 
         title.setText(titleString);
         number.setText(numberString);
+        month.setText(monthString);
         year.setText(yearString);
         description.setText(descriptionString);
         alt.setText(altString);

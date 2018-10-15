@@ -68,6 +68,8 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
         ImageView comicImage;
         @BindView(R.id.comic_year)
         TextView comicYear;
+        @BindView(R.id.comic_month)
+        TextView comicMonth;
 
         public ComicItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,6 +88,9 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
 
             String comicYearString = currentComic.getYear();
             comicYear.setText(comicYearString);
+
+            String comicMonthString = currentComic.getMonth();
+            comicMonth.setText(comicMonthString);
 
             final String comicImgUrl = currentComic.getImg();
             Picasso.get()

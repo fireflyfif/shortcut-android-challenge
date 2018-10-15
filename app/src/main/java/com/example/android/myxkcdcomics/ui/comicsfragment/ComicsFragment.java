@@ -55,8 +55,10 @@ public class ComicsFragment extends Fragment implements OnComicClickListener {
     Method for sating up the RecyclerView
      */
     private void setRecyclerView() {
+        int columnCount = getResources().getInteger(R.integer.list_column_count);
+
         StaggeredGridLayoutManager staggeredGridLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
 
         comicRv.setLayoutManager(staggeredGridLayoutManager);
         comicsAdapter = new ComicsListAdapter(this);

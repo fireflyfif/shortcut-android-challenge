@@ -124,6 +124,49 @@ public class CurrentXkcdComic implements Parcelable {
         return day;
     }
 
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public void setNews(String news) {
+        this.news = news;
+    }
+
+    public void setSafeTitle(String safeTitle) {
+        this.safeTitle = safeTitle;
+    }
+
+    public void setTranscript(String transcript) {
+        this.transcript = transcript;
+    }
+
+    public void setAlt(String alt) {
+        this.alt = alt;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
 
     @Override
     public int describeContents() {

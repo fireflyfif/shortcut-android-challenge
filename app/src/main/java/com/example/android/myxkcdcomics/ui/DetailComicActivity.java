@@ -1,14 +1,20 @@
 package com.example.android.myxkcdcomics.ui;
 
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.myxkcdcomics.R;
+import com.example.android.myxkcdcomics.database.FavComic;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
+import com.example.android.myxkcdcomics.repository.XkcdRepository;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -21,6 +27,8 @@ public class DetailComicActivity extends AppCompatActivity {
     private static final String TAG = DetailComicActivity.class.getSimpleName();
     private static final String COMIC_PARCEL_KEY = "comic_key";
 
+    @BindView(R.id.coordinator_detail_comic)
+    CoordinatorLayout coordinatorLayout;
     @BindView(R.id.toolbar_detail)
     Toolbar toolbar;
     @BindView(R.id.comic_detail_title)
@@ -39,6 +47,15 @@ public class DetailComicActivity extends AppCompatActivity {
     TextView alt;
 
     private CurrentXkcdComic currentXkcdComic;
+
+    private String titleString;
+    private String numberString;
+    private String linkString;
+    private String monthString;
+    private String yearString;
+    private String transcriptString;
+    private String altString;
+    private String imageString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +79,23 @@ public class DetailComicActivity extends AppCompatActivity {
     }
 
     private void setupUI(CurrentXkcdComic currentComic) {
-        String titleString = currentComic.getTitle();
-        String numberString = String.valueOf(currentComic.getNum());
-        String monthString = currentComic.getMonth();
-        String yearString = currentComic.getYear();
-        String descriptionString = currentComic.getTranscript();
-        String altString = currentComic.getAlt();
-        Log.d("DetailComicActivity", "Get the transcript: " + descriptionString);
+        titleString = currentComic.getTitle();
+        numberString = String.valueOf(currentComic.getNum());
+        monthString = currentComic.getMonth();
+        yearString = currentComic.getYear();
+        transcriptString = currentComic.getTranscript();
+        altString = currentComic.getAlt();
+        linkString = currentComic.getLink();
+        imageString = currentComic.getImg();
+
+        Log.d("DetailComicActivity", "Get the transcript: " + transcriptString);
         Log.d("DetailComicActivity", "Get the alt: " + altString);
-        final String imageString = currentComic.getImg();
 
         title.setText(titleString);
         number.setText(numberString);
         month.setText(monthString);
         year.setText(yearString);
-        description.setText(descriptionString);
+        description.setText(transcriptString);
         alt.setText(altString);
 
         // Load the image with Picasso
@@ -113,5 +132,34 @@ public class DetailComicActivity extends AppCompatActivity {
                                 });
                     }
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_comic_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                addComicToFavs();
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void addComicToFavs() {
+
+        FavComic favComic = new FavComic(monthString, numberString, linkString, yearString,
+                transcriptString, altString, imageString, titleString);
+
+        XkcdRepository.getInstance(getApplication()).insertItem(favComic);
+        Snackbar.make(coordinatorLayout, "Comic starred", Snackbar.LENGTH_SHORT).show();
+        Log.d(TAG, "Insert a new item into the db");
+
     }
 }

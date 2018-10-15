@@ -1,11 +1,13 @@
 package com.example.android.myxkcdcomics.repository;
 
+import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.paging.DataSource;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.android.myxkcdcomics.AppExecutors;
 import com.example.android.myxkcdcomics.XkcdApplication;
 import com.example.android.myxkcdcomics.database.ComicsDatabase;
 import com.example.android.myxkcdcomics.database.FavComic;
@@ -35,17 +37,17 @@ public class XkcdRepository {
 
 
     // Private constructor
-    private XkcdRepository() {
-        ComicsDatabase comicsDatabase = ComicsDatabase.getInstance(XkcdApplication.getInstance());
+    private XkcdRepository(Application application) {
+        ComicsDatabase comicsDatabase = ComicsDatabase.getInstance(application);
         favComicsDao = comicsDatabase.favComicsDao();
     }
 
-    public static XkcdRepository getInstance() {
+    public static XkcdRepository getInstance(Application application) {
         if (INSTANCE == null) {
             // If there is no instance available, create a new one
             synchronized (XkcdRepository.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new XkcdRepository();
+                    INSTANCE = new XkcdRepository(application);
                 }
             }
         }
@@ -53,12 +55,25 @@ public class XkcdRepository {
         return INSTANCE;
     }
 
-    public List<CurrentXkcdComic> getFavComicsList() {
+    public List<FavComic> getFavComicsList() {
         return favComicsDao.allComics();
     }
 
     public DataSource.Factory<Integer, FavComic> getAllFavs() {
         return favComicsDao.getAllFavComics();
+    }
+
+    /**
+     * Method for inserting a new item in the database
+     * @param favComic the object being saved in the db
+     */
+    public void insertItem(final FavComic favComic) {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                favComicsDao.insertComic(favComic);
+            }
+        });
     }
 
     /**

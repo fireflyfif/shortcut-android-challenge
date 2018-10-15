@@ -5,4 +5,5 @@
     <dimen name="margin_horizontal">16dp</dimen>
     <dimen name="margin_vertical_8dp">8dp</dimen>
     <dimen name="detail_image_height">400dp</dimen>
+    <dimen name="margin_6dp">6dp</dimen>
 </resources>

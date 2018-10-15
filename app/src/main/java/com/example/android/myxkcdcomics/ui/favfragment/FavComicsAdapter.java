@@ -4,6 +4,7 @@ import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import butterknife.ButterKnife;
 
 public class FavComicsAdapter extends PagedListAdapter<FavComic, RecyclerView.ViewHolder> {
 
+    private static final String TAG = FavComicsAdapter.class.getSimpleName();
     private List<FavComic> favComicList;
 
     protected FavComicsAdapter() {
@@ -38,7 +40,6 @@ public class FavComicsAdapter extends PagedListAdapter<FavComic, RecyclerView.Vi
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-
         if (getItem(position) != null) {
             ((FavComicsViewHolder) viewHolder).bindTo(favComicList.get(position));
         }
@@ -47,6 +48,7 @@ public class FavComicsAdapter extends PagedListAdapter<FavComic, RecyclerView.Vi
     @Override
     public int getItemCount() {
         if (favComicList != null) {
+            Log.d(TAG, "Size of the fav list: " + favComicList.size());
             return favComicList.size();
         }
 

@@ -15,16 +15,16 @@ import java.util.List;
 public interface FavComicsDao {
 
     @Insert
-    void insertComic(CurrentXkcdComic favComic);
+    void insertComic(FavComic favComic);
 
     @Query("SELECT * FROM fav_comics")
-    List<CurrentXkcdComic> allComics();
+    List<FavComic> allComics();
 
     @Query("SELECT * FROM fav_comics")
     DataSource.Factory<Integer, FavComic> getAllFavComics();
 
     @Query("SELECT number FROM fav_comics WHERE number = :comicNum")
-    String getComicByNum(Integer comicNum);
+    String getComicByNum(String comicNum);
 
 
 }

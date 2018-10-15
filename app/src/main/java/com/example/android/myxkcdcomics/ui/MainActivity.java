@@ -11,6 +11,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.android.myxkcdcomics.R;
 import com.example.android.myxkcdcomics.ui.comicsfragment.ComicsFragment;
+import com.example.android.myxkcdcomics.ui.favfragment.FavFragment;
 import com.example.android.myxkcdcomics.ui.searchfragment.SearchFragment;
 
 import butterknife.BindView;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         pagerAdapter = new BottomNavAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new ComicsFragment());
         pagerAdapter.addFragments(new SearchFragment());
-        pagerAdapter.addFragments(new ComicsFragment());
+        pagerAdapter.addFragments(new FavFragment());
 
         viewPager.setAdapter(pagerAdapter);
     }

@@ -29,7 +29,7 @@ public class FavComic {
     private String month;
 
     @ColumnInfo(name = "number")
-    private Integer num;
+    private String num;
 
     @ColumnInfo(name = "link")
     private String link;
@@ -49,9 +49,8 @@ public class FavComic {
     @ColumnInfo(name = "title")
     private String title;
 
-    public FavComic(int id, String month, Integer num, String link, String year,
+    public FavComic(String month, String num, String link, String year,
                     String transcript, String alt, String img, String title) {
-        this.id = id;
         this.month = month;
         this.num = num;
         this.link = link;
@@ -66,11 +65,15 @@ public class FavComic {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getMonth() {
         return month;
     }
 
-    public Integer getNum() {
+    public String getNum() {
         return num;
     }
 

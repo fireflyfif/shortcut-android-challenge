@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.android.myxkcdcomics.R;
 import com.example.android.myxkcdcomics.database.FavComic;
@@ -26,6 +28,10 @@ public class FavFragment extends Fragment {
 
     @BindView(R.id.fav_comics_rv)
     RecyclerView favRv;
+    @BindView(R.id.fav_progress_bar)
+    ProgressBar favProgressBar;
+    @BindView(R.id.fav_empty_text)
+    TextView emptyMsg;
 
     public FavFragment() {
     }
@@ -55,9 +61,18 @@ public class FavFragment extends Fragment {
             @Override
             public void onChanged(@Nullable PagedList<FavComic> favComics) {
                 if (favComics != null && favComics.size() > 0) {
+                    // Hide the progress bar and the empty message
+                    favProgressBar.setVisibility(View.INVISIBLE);
+                    emptyMsg.setVisibility(View.INVISIBLE);
 
                     favAdapter.submitList(favComics);
+                } else {
+                    // Show the message for empty list
+                    emptyMsg.setVisibility(View.VISIBLE);
+                    // Hide the progress bar
+                    favProgressBar.setVisibility(View.INVISIBLE);
                 }
+
             }
         });
     }

@@ -46,6 +46,11 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     // Bottom Navigation Library Dependency
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
+
+    // Room Library Dependencies
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+
     // Mockito dependency
     testImplementation 'org.mockito:mockito-core:2.23.0'
     testImplementation 'junit:junit:4.12'

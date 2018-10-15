@@ -1,24 +1,15 @@
 package com.example.android.myxkcdcomics.repository;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.paging.DataSource;
-import android.support.annotation.NonNull;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.android.myxkcdcomics.AppExecutors;
-import com.example.android.myxkcdcomics.XkcdApplication;
+import com.example.android.myxkcdcomics.callbacks.ResultFromCallback;
 import com.example.android.myxkcdcomics.database.ComicsDatabase;
 import com.example.android.myxkcdcomics.database.FavComic;
 import com.example.android.myxkcdcomics.database.dao.FavComicsDao;
-import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /*
 Repository pattern that is a Singleton class.
@@ -55,16 +46,13 @@ public class XkcdRepository {
         return INSTANCE;
     }
 
-    public List<FavComic> getFavComicsList() {
-        return favComicsDao.allComics();
-    }
-
     public DataSource.Factory<Integer, FavComic> getAllFavs() {
         return favComicsDao.getAllFavComics();
     }
 
     /**
      * Method for inserting a new item in the database
+     *
      * @param favComic the object being saved in the db
      */
     public void insertItem(final FavComic favComic) {
@@ -76,51 +64,51 @@ public class XkcdRepository {
         });
     }
 
-    /**
-     * Getter method that gets the loaded comic data
-     * TODO: Remove!!! Not in use now
-     *
-     * @return the loaded comic data from the XKCD API
-     */
-    public LiveData<CurrentXkcdComic> getCurrentComics() {
-        return loadCurrentComics();
-    }
-
-    /**
-     * Method that loads the current comics from the XKCD API
-     * TODO: Remove!!! Not in use now
-     *
-     * @return the Mutable data of the current comics
-     */
-    private LiveData<CurrentXkcdComic> loadCurrentComics() {
-
-        final MutableLiveData<CurrentXkcdComic> comicsData = new MutableLiveData<>();
-
-        XkcdApplication.getInstance().getXkcdApi().getCurrentComic().enqueue(new Callback<CurrentXkcdComic>() {
-
-            CurrentXkcdComic currentXkcdComics = new CurrentXkcdComic();
-
+    public void deleteItem(final String comicNumber) {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
-            public void onResponse(@NonNull Call<CurrentXkcdComic> call, @NonNull Response<CurrentXkcdComic> response) {
-                if (response.isSuccessful()) {
-                    currentXkcdComics = response.body();
-                    if (currentXkcdComics != null) {
-                        // Set the value of the current comics
-                        comicsData.setValue(currentXkcdComics);
-                        Log.d(TAG, "Current comics loaded successfully!");
-                    } else {
-                        comicsData.setValue(null);
-                        Log.d(TAG, "Current comics NOT loaded successfully!");
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<CurrentXkcdComic> call, @NonNull Throwable t) {
-                Log.d(TAG, "OnFailure! " + t.getMessage());
+            public void run() {
+                Log.d(TAG, "Item is deleted from the db!");
+                favComicsDao.deleteComic(comicNumber);
             }
         });
-
-        return comicsData;
     }
+
+    /*
+    Get an item by Id from the database
+     */
+    public void addOrRemoveFromDb(String comicNum, ResultFromCallback callback) {
+        new getItemByNum(comicNum, favComicsDao, callback).execute();
+    }
+
+    /*
+    Query the item on a background thread via AsyncTask
+     */
+    private static class getItemByNum extends AsyncTask<Void, Void, Boolean> {
+
+        private String comicNum;
+        private FavComicsDao favComicsDao;
+        private ResultFromCallback callback;
+
+        public getItemByNum(String comicNum, FavComicsDao favComicsDao,
+                            ResultFromCallback resultFromCallback) {
+            this.comicNum = comicNum;
+            this.favComicsDao = favComicsDao;
+            this.callback = resultFromCallback;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            boolean isFav = comicNum.equals(favComicsDao.getComicByNum(comicNum));
+            Log.d(TAG, "doInBackground: Item is in the db: " + isFav);
+
+            return isFav;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean isFav) {
+            callback.setResult(isFav);
+        }
+    }
+
 }

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/action_favorite"
+        android:id="@+id/action_share"
         android:title="Fav"
         android:orderInCategory="100"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_favorite_black_24dp"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_share_black_24dp"
         tools:ignore="HardcodedText" />
 
 </menu>

@@ -26,5 +26,6 @@ public interface FavComicsDao {
     @Query("SELECT number FROM fav_comics WHERE number = :comicNum")
     String getComicByNum(String comicNum);
 
-
+    @Query("DELETE FROM fav_comics WHERE number = :comicNumber")
+    void deleteComic(String comicNumber);
 }

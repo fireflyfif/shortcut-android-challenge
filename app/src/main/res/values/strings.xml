@@ -2,4 +2,5 @@
     <string name="app_name">My XKCD Comics</string>
     <string name="slash_sign">/</string>
     <string name="empty_msg">No favorite items found. \nAdd your favorite artworks!</string>
+    <string name="fab_contentDecription">Add to favorites button</string>
 </resources>

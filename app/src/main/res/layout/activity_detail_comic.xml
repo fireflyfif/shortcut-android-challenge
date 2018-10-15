@@ -36,27 +36,43 @@
 
                 <TextView
                     android:id="@+id/comic_detail_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:padding="@dimen/padding_6dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textStyle="bold"
                     app:fontFamily="casual"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/fav_button"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Comic Title" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fav_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:contentDescription="@string/fab_contentDecription"
+                    android:tint="@color/colorPrimary"
+                    app:fabSize="normal"
+                    android:backgroundTint="@color/colorWhite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_star_border_black_24dp" />
 
                 <View
                     android:id="@+id/accent_bg"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:background="@color/colorAccent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -164,6 +180,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/accent_bg"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
+                <View
+                    android:id="@+id/fab_anchor"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorBgDark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/comic_detail_image" />
+
                 <TextView
                     android:id="@+id/comic_detail_description"
                     android:layout_width="match_parent"
@@ -195,8 +221,9 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/comic_detail_image"
+                    app:layout_constraintTop_toBottomOf="@+id/fab_anchor"
                     tools:text="Alt here of the comic" />
 
             </android.support.constraint.ConstraintLayout>

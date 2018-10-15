@@ -1,17 +1,23 @@
 package com.example.android.myxkcdcomics.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.myxkcdcomics.R;
+import com.example.android.myxkcdcomics.callbacks.ResultFromCallback;
 import com.example.android.myxkcdcomics.database.FavComic;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
 import com.example.android.myxkcdcomics.repository.XkcdRepository;
@@ -26,6 +32,9 @@ public class DetailComicActivity extends AppCompatActivity {
 
     private static final String TAG = DetailComicActivity.class.getSimpleName();
     private static final String COMIC_PARCEL_KEY = "comic_key";
+    private static final String IS_FAV_SAVED_STATE = "is_fav";
+    private static final int FAV_TAG = 0;
+    private static final int NON_FAV_TAG = 1;
 
     @BindView(R.id.coordinator_detail_comic)
     CoordinatorLayout coordinatorLayout;
@@ -45,8 +54,11 @@ public class DetailComicActivity extends AppCompatActivity {
     TextView description;
     @BindView(R.id.comic_detail_alt)
     TextView alt;
+    @BindView(R.id.fav_button)
+    FloatingActionButton fab;
 
     private CurrentXkcdComic currentXkcdComic;
+    private DetailComicViewModel viewModel;
 
     private String titleString;
     private String numberString;
@@ -56,6 +68,8 @@ public class DetailComicActivity extends AppCompatActivity {
     private String transcriptString;
     private String altString;
     private String imageString;
+
+    private boolean isAddedToDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +82,13 @@ public class DetailComicActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        if (savedInstanceState != null) {
+            isAddedToDb = savedInstanceState.getBoolean(IS_FAV_SAVED_STATE);
+        }
+
+        // Initialize the ViewModel
+        viewModel = ViewModelProviders.of(this).get(DetailComicViewModel.class);
+
         if (getIntent().getExtras() != null) {
             Bundle receivedArgs = getIntent().getExtras();
             currentXkcdComic = receivedArgs.getParcelable(COMIC_PARCEL_KEY);
@@ -76,6 +97,63 @@ public class DetailComicActivity extends AppCompatActivity {
                 setupUI(currentXkcdComic);
             }
         }
+
+        viewModel.isAddedToDb(numberString, new ResultFromCallback() {
+            @Override
+            public void setResult(boolean isFav) {
+                if (isFav) {
+                    isAddedToDb = true;
+                    fab.setTag(FAV_TAG);
+                    fab.setImageResource(R.drawable.ic_star_black_24dp);
+                    Log.d(TAG, "Item is in the db." + isAddedToDb);
+                } else {
+                    isAddedToDb = false;
+                    fab.setTag(NON_FAV_TAG);
+                    fab.setImageResource(R.drawable.ic_star_border_black_24dp);
+                    Log.d(TAG, "Item is NOT in the db");
+                }
+            }
+        });
+
+        clickFab();
+    }
+
+    private void clickFab() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setIconOnFab(view);
+            }
+        });
+    }
+
+    private void setIconOnFab(View view) {
+        int tagValue = (int) view.getTag();
+
+        switch (tagValue) {
+            case FAV_TAG:
+                // Delete from the db
+                deleteFromFavs();
+                fab.setTag(NON_FAV_TAG);
+                fab.setImageResource(R.drawable.ic_star_border_black_24dp);
+                break;
+            case NON_FAV_TAG:
+                // Add to the db
+                addToFavs();
+                fab.setTag(FAV_TAG);
+                fab.setImageResource(R.drawable.ic_star_black_24dp);
+            default:
+                fab.setTag(NON_FAV_TAG);
+                fab.setImageResource(R.drawable.ic_star_border_black_24dp);
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(IS_FAV_SAVED_STATE, isAddedToDb);
     }
 
     private void setupUI(CurrentXkcdComic currentComic) {
@@ -143,8 +221,16 @@ public class DetailComicActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_favorite:
-                addComicToFavs();
+            case R.id.action_share:
+                // Share the image of the comics
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                if (imageString != null || !TextUtils.isEmpty(imageString)) {
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, imageString);
+                    startActivity(shareIntent);
+                } else {
+                    Snackbar.make(coordinatorLayout, "Nothing to share", Snackbar.LENGTH_SHORT).show();
+                }
                 return true;
             default:
                 break;
@@ -152,15 +238,16 @@ public class DetailComicActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void addComicToFavs() {
-
-
+    private void addToFavs() {
         FavComic favComic = new FavComic(monthString, numberString, linkString, yearString,
                 transcriptString, altString, imageString, titleString);
 
-        XkcdRepository.getInstance(getApplication()).insertItem(favComic);
-        Snackbar.make(coordinatorLayout, "Comic starred", Snackbar.LENGTH_SHORT).show();
-        Log.d(TAG, "Insert a new item into the db");
+        viewModel.insertInDb(favComic);
+        Snackbar.make(coordinatorLayout, "Comics added to favorites", Snackbar.LENGTH_LONG).show();
+    }
 
+    private void deleteFromFavs() {
+        viewModel.deleteItem(numberString);
+        Snackbar.make(coordinatorLayout, "Comics removed from favorites", Snackbar.LENGTH_LONG).show();
     }
 }

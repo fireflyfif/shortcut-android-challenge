@@ -39,6 +39,9 @@ public class ComicsFragment extends Fragment implements OnComicClickListener {
     private ComicsListAdapter comicsAdapter;
     private ComicsViewModel viewModel;
 
+    public ComicsFragment() {
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -2,11 +2,17 @@ package com.example.android.myxkcdcomics.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.paging.DataSource;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.android.myxkcdcomics.XkcdApplication;
+import com.example.android.myxkcdcomics.database.ComicsDatabase;
+import com.example.android.myxkcdcomics.database.FavComic;
+import com.example.android.myxkcdcomics.database.dao.FavComicsDao;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,14 +31,13 @@ public class XkcdRepository {
     private static volatile XkcdRepository INSTANCE;
 
     private static final String TAG = XkcdRepository.class.getSimpleName();
+    private FavComicsDao favComicsDao;
 
 
     // Private constructor
-    public XkcdRepository() {
-        if (INSTANCE != null) {
-            throw new RuntimeException("Use getInstance() method to get the single instance of " +
-                    "this class.");
-        }
+    private XkcdRepository() {
+        ComicsDatabase comicsDatabase = ComicsDatabase.getInstance(XkcdApplication.getInstance());
+        favComicsDao = comicsDatabase.favComicsDao();
     }
 
     public static XkcdRepository getInstance() {
@@ -48,8 +53,18 @@ public class XkcdRepository {
         return INSTANCE;
     }
 
+    public List<CurrentXkcdComic> getFavComicsList() {
+        return favComicsDao.allComics();
+    }
+
+    public DataSource.Factory<Integer, FavComic> getAllFavs() {
+        return favComicsDao.getAllFavComics();
+    }
+
     /**
      * Getter method that gets the loaded comic data
+     * TODO: Remove!!! Not in use now
+     *
      * @return the loaded comic data from the XKCD API
      */
     public LiveData<CurrentXkcdComic> getCurrentComics() {
@@ -58,6 +73,8 @@ public class XkcdRepository {
 
     /**
      * Method that loads the current comics from the XKCD API
+     * TODO: Remove!!! Not in use now
+     *
      * @return the Mutable data of the current comics
      */
     private LiveData<CurrentXkcdComic> loadCurrentComics() {

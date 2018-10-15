@@ -31,6 +31,9 @@ public class SearchFragment extends Fragment {
     @BindView(R.id.web_progress_bar)
     ProgressBar progressBar;
 
+    public SearchFragment() {
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

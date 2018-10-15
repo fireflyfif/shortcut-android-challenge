@@ -3,9 +3,23 @@ package com.example.android.myxkcdcomics.database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 
 @Entity(tableName = "fav_comics")
 public class FavComic {
+
+    public static DiffUtil.ItemCallback<FavComic> DIFF_CALLBACK = new DiffUtil.ItemCallback<FavComic>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull FavComic oldItem, @NonNull FavComic newItem) {
+            return oldItem.id == newItem.id;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull FavComic oldItem, @NonNull FavComic newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

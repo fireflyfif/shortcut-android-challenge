@@ -5,80 +5,86 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/colorBackground"
     app:cardCornerRadius="4dp"
     tools:context=".ui.MainActivity">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/comic_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="6dp"
+            android:padding="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textStyle="bold"
             app:fontFamily="casual"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Comic Title" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/comic_number"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:background="@color/colorAccent"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:drawableStart="@drawable/ic_number_sign"
+            android:drawableLeft="@drawable/ic_number_sign"
+            android:drawablePadding="6dp"
+            android:paddingStart="@dimen/padding_6dp"
+            android:paddingLeft="@dimen/padding_6dp"
+            android:paddingTop="@dimen/padding_6dp"
+            android:paddingEnd="@dimen/padding_6dp"
+            android:paddingRight="@dimen/padding_6dp"
+            android:paddingBottom="@dimen/padding_6dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            app:fontFamily="casual"
+            app:layout_constraintEnd_toStartOf="@+id/comic_year"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comic_title"
+            tools:text="Num" />
 
-            <TextView
-                android:id="@+id/comic_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_number_sign"
-                android:drawableLeft="@drawable/ic_number_sign"
-                android:drawablePadding="6dp"
-                android:padding="6dp"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                app:fontFamily="casual"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/comic_year"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Num" />
-
-            <TextView
-                android:id="@+id/comic_year"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_date_range_black_24dp"
-                android:drawableLeft="@drawable/ic_date_range_black_24dp"
-                android:drawablePadding="6dp"
-                android:padding="6dp"
-                android:textAppearance="@style/TextAppearance.AppCompat"
-                app:fontFamily="casual"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Year" />
-
-        </android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/comic_year"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:drawableStart="@drawable/ic_date_range_black_24dp"
+            android:drawableLeft="@drawable/ic_date_range_black_24dp"
+            android:drawablePadding="6dp"
+            android:paddingStart="@dimen/padding_6dp"
+            android:paddingLeft="@dimen/padding_6dp"
+            android:paddingTop="@dimen/padding_6dp"
+            android:paddingEnd="@dimen/padding_6dp"
+            android:paddingRight="@dimen/padding_6dp"
+            android:paddingBottom="@dimen/padding_6dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            app:fontFamily="casual"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/comic_number"
+            tools:text="Year" />
 
         <ImageView
             android:id="@+id/comic_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/comic_number"
             app:srcCompat="@drawable/ic_launcher_background" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

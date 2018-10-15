@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.example.android.myxkcdcomics.data.XkcdApiManager;
 import com.example.android.myxkcdcomics.data.XkcdService;
+import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
 
 // Singleton class that extends the Application.
 // The Application is the first context to be created and the last to be destroyed. Thus,
@@ -12,7 +14,6 @@ public class XkcdApplication extends Application {
 
     private static volatile XkcdApplication INSTANCE;
     private XkcdService xkcdService;
-
 
     // Private constructor
     public XkcdApplication() {

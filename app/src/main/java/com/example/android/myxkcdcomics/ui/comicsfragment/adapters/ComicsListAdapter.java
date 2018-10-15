@@ -76,7 +76,7 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
             itemView.setOnClickListener(this);
         }
 
-        private void bindTo(CurrentXkcdComic currentComic) {
+        private void bindTo(final CurrentXkcdComic currentComic) {
 
             String comicNimString = String.valueOf(currentComic.getNum());
             comicNumber.setText(comicNimString);
@@ -101,6 +101,7 @@ public class ComicsListAdapter extends PagedListAdapter<CurrentXkcdComic, Recycl
 
                         @Override
                         public void onError(Exception e) {
+                            Log.d(TAG, "Picasso onError called, offline mode.");
                             // Try again online if cache failed
                             // source: https://stackoverflow.com/a/30686992/8132331
                             Picasso.get()

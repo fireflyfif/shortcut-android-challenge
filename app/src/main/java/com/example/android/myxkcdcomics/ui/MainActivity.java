@@ -2,7 +2,6 @@ package com.example.android.myxkcdcomics.ui;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.android.myxkcdcomics.R;
 import com.example.android.myxkcdcomics.ui.comicsfragment.ComicsFragment;
+import com.example.android.myxkcdcomics.ui.searchfragment.SearchFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager() {
         pagerAdapter = new BottomNavAdapter(getSupportFragmentManager());
         pagerAdapter.addFragments(new ComicsFragment());
-        pagerAdapter.addFragments(new ComicsFragment());
+        pagerAdapter.addFragments(new SearchFragment());
         pagerAdapter.addFragments(new ComicsFragment());
 
         viewPager.setAdapter(pagerAdapter);

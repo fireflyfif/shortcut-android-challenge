@@ -89,6 +89,7 @@ public class DetailComicActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Exception e) {
+                        Log.d(TAG, "Picasso onError called, offline mode.");
                         // Try again online if cache failed
                         // source: https://stackoverflow.com/a/30686992/8132331
                         Picasso.get()

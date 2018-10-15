@@ -87,9 +87,10 @@ public class ComicsFragment extends Fragment implements OnComicClickListener {
 
     @Override
     public void onComicClick(CurrentXkcdComic currentXkcdComic) {
-        // TODO: Create an intent for the detail view
+        // Create an intent for the detail view
         Bundle bundle = new Bundle();
         bundle.putParcelable(COMIC_PARCEL_KEY, currentXkcdComic);
+
         Intent detailIntent = new Intent(getContext(), DetailComicActivity.class);
         detailIntent.putExtras(bundle);
         startActivity(detailIntent);

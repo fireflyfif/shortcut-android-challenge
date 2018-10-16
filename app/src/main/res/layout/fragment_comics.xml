@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/padding_16dp">
 
         <TextView
             android:id="@+id/error_message"
@@ -28,18 +28,17 @@
             android:background="@color/colorPrimaryDark"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:padding="16dp"
-            android:text="Error message"
-            android:visibility="invisible"
-            android:textColor="@color/colorAccent" />
+            android:padding="@dimen/padding_16dp"
+            android:text="@string/error_message"
+            android:textColor="@color/colorAccent"
+            android:visibility="invisible" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:padding="10dp" />
+            android:padding="@dimen/padding_10dp"
+            android:visibility="invisible" />
 
     </LinearLayout>
-
 </android.support.design.widget.CoordinatorLayout>

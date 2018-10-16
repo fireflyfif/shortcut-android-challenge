@@ -64,6 +64,11 @@ public class XkcdRepository {
         });
     }
 
+    /**
+     * Method for deleting an item by its number
+     *
+     * @param comicNumber the number of the comic being deleted
+     */
     public void deleteItem(final String comicNumber) {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override

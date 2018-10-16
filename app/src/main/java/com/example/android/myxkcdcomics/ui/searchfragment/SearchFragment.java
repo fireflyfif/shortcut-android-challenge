@@ -50,7 +50,6 @@ public class SearchFragment extends Fragment {
                     return false;
                 }
 
-
                 Log.d(TAG, "Taken url from web: " + url);
                 // Show the loaded url into the web view
                 webView.loadUrl(url);
@@ -89,8 +88,10 @@ public class SearchFragment extends Fragment {
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setUseWideViewPort(true);
-
         webView.getSettings().setLoadsImagesAutomatically(true);
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+
         webView.loadUrl("https://relevantxkcd.appspot.com/");
 
         return rootView;

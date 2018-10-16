@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         AHBottomNavigationItem searchItem = new AHBottomNavigationItem(
                 "Search", R.drawable.ic_search_black_24dp);
         AHBottomNavigationItem favItem = new AHBottomNavigationItem(
-                "Favs", R.drawable.ic_favorite_black_24dp);
+                "Favs", R.drawable.ic_star_black_24dp);
 
         bottomNavigation.addItem(comicsItem);
         bottomNavigation.addItem(searchItem);

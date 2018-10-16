@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_6dp"
     app:cardBackgroundColor="@color/colorBackground"
-    app:cardCornerRadius="4dp"
+    app:cardCornerRadius="@dimen/card_radius"
     tools:context=".ui.MainActivity">
 
     <android.support.constraint.ConstraintLayout
@@ -19,7 +19,7 @@
             android:id="@+id/comic_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/padding_10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textStyle="bold"
             app:fontFamily="casual"
@@ -82,7 +82,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/comic_number"
             app:layout_constraintEnd_toStartOf="@+id/slash"
             app:layout_constraintTop_toTopOf="@+id/comic_number"
-            tools:text="Month" />
+            tools:text="Month"/>
 
         <TextView
             android:id="@+id/slash"
@@ -102,8 +102,8 @@
             android:id="@+id/comic_year"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:layout_marginRight="@dimen/margin_8dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/padding_6dp"
@@ -123,10 +123,10 @@
         <ImageView
             android:id="@+id/comic_image"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/image_thumbnail_height"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginBottom="@dimen/thumbnail_margin_bottom"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

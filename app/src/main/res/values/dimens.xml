@@ -7,4 +7,11 @@
     <dimen name="detail_image_height">400dp</dimen>
     <dimen name="margin_6dp">6dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="image_thumbnail_height">200dp</dimen>
+    <dimen name="fa_card_margin">8dp</dimen>
+    <dimen name="card_radius">4dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="thumbnail_margin_bottom">32dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
 </resources>

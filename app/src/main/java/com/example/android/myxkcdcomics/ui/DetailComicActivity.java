@@ -98,6 +98,14 @@ public class DetailComicActivity extends AppCompatActivity {
             }
         }
 
+        checkComicIsFav();
+        clickFab();
+    }
+
+    /*
+    Method for checking if the item exists in the database
+     */
+    private void checkComicIsFav() {
         viewModel.isAddedToDb(numberString, new ResultFromCallback() {
             @Override
             public void setResult(boolean isFav) {
@@ -105,7 +113,7 @@ public class DetailComicActivity extends AppCompatActivity {
                     isAddedToDb = true;
                     fab.setTag(FAV_TAG);
                     fab.setImageResource(R.drawable.ic_star_black_24dp);
-                    Log.d(TAG, "Item is in the db." + isAddedToDb);
+                    Log.d(TAG, "Item is in the db:" + isAddedToDb);
                 } else {
                     isAddedToDb = false;
                     fab.setTag(NON_FAV_TAG);
@@ -114,10 +122,11 @@ public class DetailComicActivity extends AppCompatActivity {
                 }
             }
         });
-
-        clickFab();
     }
 
+    /*
+    Click on the FAB to add current comic into the database
+     */
     private void clickFab() {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +136,9 @@ public class DetailComicActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    Set icons on FAB according to the tag
+     */
     private void setIconOnFab(View view) {
         int tagValue = (int) view.getTag();
 
@@ -142,6 +154,7 @@ public class DetailComicActivity extends AppCompatActivity {
                 addToFavs();
                 fab.setTag(FAV_TAG);
                 fab.setImageResource(R.drawable.ic_star_black_24dp);
+                break;
             default:
                 fab.setTag(NON_FAV_TAG);
                 fab.setImageResource(R.drawable.ic_star_border_black_24dp);
@@ -156,6 +169,9 @@ public class DetailComicActivity extends AppCompatActivity {
         outState.putBoolean(IS_FAV_SAVED_STATE, isAddedToDb);
     }
 
+    /*
+    Method for setting the UI
+     */
     private void setupUI(CurrentXkcdComic currentComic) {
         titleString = currentComic.getTitle();
         numberString = String.valueOf(currentComic.getNum());
@@ -238,16 +254,24 @@ public class DetailComicActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+    Method for adding a comic to the database
+     */
     private void addToFavs() {
         FavComic favComic = new FavComic(monthString, numberString, linkString, yearString,
                 transcriptString, altString, imageString, titleString);
 
         viewModel.insertInDb(favComic);
+        // Show a message to the user
         Snackbar.make(coordinatorLayout, "Comics added to favorites", Snackbar.LENGTH_LONG).show();
     }
 
+    /*
+    Method for deleting a comic from the database
+     */
     private void deleteFromFavs() {
         viewModel.deleteItem(numberString);
+        // Show a message to the user
         Snackbar.make(coordinatorLayout, "Comics removed from favorites", Snackbar.LENGTH_LONG).show();
     }
 }

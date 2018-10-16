@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.android.myxkcdcomics.R;
 import com.example.android.myxkcdcomics.database.FavComic;
+import com.example.android.myxkcdcomics.ui.favfragment.adapter.FavComicsAdapter;
 
 import java.util.Objects;
 

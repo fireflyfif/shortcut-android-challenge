@@ -1,10 +1,9 @@
-package com.example.android.myxkcdcomics.ui.favfragment;
+package com.example.android.myxkcdcomics.ui.favfragment.adapter;
 
 import android.arch.paging.PagedList;
 import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +26,7 @@ public class FavComicsAdapter extends PagedListAdapter<FavComic, RecyclerView.Vi
     private static final String TAG = FavComicsAdapter.class.getSimpleName();
     private List<FavComic> favComicList;
 
-    protected FavComicsAdapter() {
+    public FavComicsAdapter() {
         super(FavComic.DIFF_CALLBACK);
     }
 

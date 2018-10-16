@@ -20,7 +20,7 @@ import com.example.android.myxkcdcomics.R;
 import com.example.android.myxkcdcomics.callbacks.OnComicClickListener;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
 import com.example.android.myxkcdcomics.ui.DetailComicActivity;
-import com.example.android.myxkcdcomics.ui.comicsfragment.adapters.ComicsListAdapter;
+import com.example.android.myxkcdcomics.ui.comicsfragment.adapter.ComicsListAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

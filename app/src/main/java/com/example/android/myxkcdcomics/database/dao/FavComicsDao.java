@@ -28,4 +28,7 @@ public interface FavComicsDao {
 
     @Query("DELETE FROM fav_comics WHERE number = :comicNumber")
     void deleteComic(String comicNumber);
+
+    @Query("DELETE FROM fav_comics")
+    void deleteAllData();
 }

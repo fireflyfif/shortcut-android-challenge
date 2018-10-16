@@ -74,6 +74,17 @@ public class XkcdRepository {
         });
     }
 
+    // Delete all list of favorite comics
+    // Create a warning dialog for the user before allowing them to delete all data
+    public void deleteAllItems() {
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                favComicsDao.deleteAllData();
+            }
+        });
+    }
+
     /*
     Get an item by Id from the database
      */

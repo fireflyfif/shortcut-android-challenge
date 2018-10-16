@@ -43,4 +43,21 @@ public class FavViewModel extends AndroidViewModel {
         return favComicsList;
     }
 
+    public void deleteAllComics() {
+        xkcdRepository.deleteAllItems();
+    }
+
+    public LiveData<PagedList<FavComic>> refreshFavComics(Application application) {
+        PagedList.Config pagedListConfig = new PagedList.Config.Builder()
+                .setEnablePlaceholders(true)
+                .setPrefetchDistance(PREFETCH_NUMBER)
+                .setPageSize(PAGE_SIZE)
+                .build();
+
+        favComicsList = new LivePagedListBuilder<>(XkcdRepository.getInstance(application)
+                .getAllFavs(),
+                pagedListConfig).build();
+
+        return favComicsList;
+    }
 }

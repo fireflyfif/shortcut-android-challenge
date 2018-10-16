@@ -1,7 +1,6 @@
 # The Shortcutter's Android Challenge
-
+The challenege rules can be found [here](https://github.com/shortcut/android-coding-assignment).
 ## Completed Tasks
--------------------------------------
 - [x] browse through the comics,
 - [x] see the comic details, including its description,
 - [x] search for comics by the comic number as well as text,
@@ -20,6 +19,7 @@
 - Provided portrait and landscape layout, as well as support for bigger screens (such as tablets). The app uses dimens that corresponds to each case, hence provide a better user experience.
 - Provided search options through the WebView that directly access the https://relevantxkcd.appspot.com/ url. The WebView was too large and it wasn't fitting the screen at first, so it needed adjustments. In order for the user to search by providing either a comic number or text the JavaScrip had to be enabled on the WebView. The result from the search is provided in a link that when clicked loads a new url with the comic image. While it's not yet ideal, it's still functional.  
 - Comics can be shared by providing the link to the current comic's image. 
+- Tested the logic of the Repository in earlier version. 
 
 ## Libraries
 - [Support Libraries](https://developer.android.com/topic/libraries/support-library/)

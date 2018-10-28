@@ -28,9 +28,10 @@ public class XkcdRepository {
 
 
     // Private constructor
+    // TODO: Remove the Application from the scope of the Repository
     private XkcdRepository(Application application) {
-        ComicsDatabase comicsDatabase = ComicsDatabase.getInstance(application);
-        favComicsDao = comicsDatabase.favComicsDao();
+        //ComicsDatabase comicsDatabase = ComicsDatabase.getInstance(application);
+        //favComicsDao = comicsDatabase.favComicsDao();
     }
 
     public static XkcdRepository getInstance(Application application) {
@@ -46,85 +47,5 @@ public class XkcdRepository {
         return INSTANCE;
     }
 
-    public DataSource.Factory<Integer, FavComic> getAllFavs() {
-        return favComicsDao.getAllFavComics();
-    }
-
-    /**
-     * Method for inserting a new item in the database
-     *
-     * @param favComic the object being saved in the db
-     */
-    public void insertItem(final FavComic favComic) {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                favComicsDao.insertComic(favComic);
-            }
-        });
-    }
-
-    /**
-     * Method for deleting an item by its number
-     *
-     * @param comicNumber the number of the comic being deleted
-     */
-    public void deleteItem(final String comicNumber) {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "Item is deleted from the db!");
-                favComicsDao.deleteComic(comicNumber);
-            }
-        });
-    }
-
-    // Delete all list of favorite comics
-    // Create a warning dialog for the user before allowing them to delete all data
-    public void deleteAllItems() {
-        AppExecutors.getInstance().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                favComicsDao.deleteAllData();
-            }
-        });
-    }
-
-    /*
-    Get an item by Id from the database
-     */
-    public void addOrRemoveFromDb(String comicNum, ResultFromCallback callback) {
-        new getItemByNum(comicNum, favComicsDao, callback).execute();
-    }
-
-    /*
-    Query the item on a background thread via AsyncTask
-     */
-    private static class getItemByNum extends AsyncTask<Void, Void, Boolean> {
-
-        private String comicNum;
-        private FavComicsDao favComicsDao;
-        private ResultFromCallback callback;
-
-        public getItemByNum(String comicNum, FavComicsDao favComicsDao,
-                            ResultFromCallback resultFromCallback) {
-            this.comicNum = comicNum;
-            this.favComicsDao = favComicsDao;
-            this.callback = resultFromCallback;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            boolean isFav = comicNum.equals(favComicsDao.getComicByNum(comicNum));
-            Log.d(TAG, "doInBackground: Item is in the db: " + isFav);
-
-            return isFav;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean isFav) {
-            callback.setResult(isFav);
-        }
-    }
 
 }

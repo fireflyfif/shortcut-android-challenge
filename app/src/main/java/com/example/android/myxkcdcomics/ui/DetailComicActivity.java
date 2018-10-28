@@ -1,5 +1,6 @@
 package com.example.android.myxkcdcomics.ui;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
@@ -17,10 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.myxkcdcomics.R;
+import com.example.android.myxkcdcomics.XkcdApplication;
 import com.example.android.myxkcdcomics.callbacks.ResultFromCallback;
 import com.example.android.myxkcdcomics.database.FavComic;
 import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
+import com.example.android.myxkcdcomics.repository.FavComicsRepository;
 import com.example.android.myxkcdcomics.repository.XkcdRepository;
+import com.example.android.myxkcdcomics.utils.InjectorUtils;
+import com.example.android.myxkcdcomics.viewmodel.ComicsViewModelFactory;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -59,6 +64,7 @@ public class DetailComicActivity extends AppCompatActivity {
 
     private CurrentXkcdComic currentXkcdComic;
     private DetailComicViewModel viewModel;
+    private ComicsViewModelFactory viewModelFactory;
 
     private String titleString;
     private String numberString;
@@ -86,8 +92,10 @@ public class DetailComicActivity extends AppCompatActivity {
             isAddedToDb = savedInstanceState.getBoolean(IS_FAV_SAVED_STATE);
         }
 
+        // Initialize the ViewModelFactory first
+        viewModelFactory = InjectorUtils.provideDetailComicViewModelFactory(this.getApplicationContext());
         // Initialize the ViewModel
-        viewModel = ViewModelProviders.of(this).get(DetailComicViewModel.class);
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailComicViewModel.class);
 
         if (getIntent().getExtras() != null) {
             Bundle receivedArgs = getIntent().getExtras();

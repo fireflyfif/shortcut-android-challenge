@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.example.android.myxkcdcomics.R;
 import com.example.android.myxkcdcomics.database.FavComic;
 import com.example.android.myxkcdcomics.ui.favfragment.adapter.FavComicsAdapter;
+import com.example.android.myxkcdcomics.utils.InjectorUtils;
+import com.example.android.myxkcdcomics.viewmodel.FavViewModelFactory;
 
 import java.util.Objects;
 
@@ -62,7 +64,10 @@ public class FavFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_fav, container, false);
         ButterKnife.bind(this, rootView);
 
-        favViewModel = ViewModelProviders.of(this).get(FavViewModel.class);
+        // Initialize the ViewModelFactory first
+        FavViewModelFactory favFactory = InjectorUtils.provideFavComicViewModelFactory(
+                getContext().getApplicationContext());
+        favViewModel = ViewModelProviders.of(this, favFactory).get(FavViewModel.class);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false);

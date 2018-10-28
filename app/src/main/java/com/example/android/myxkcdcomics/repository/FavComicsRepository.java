@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.example.android.myxkcdcomics.AppExecutors;
 import com.example.android.myxkcdcomics.callbacks.ResultFromCallback;
-import com.example.android.myxkcdcomics.database.ComicsDatabase;
 import com.example.android.myxkcdcomics.database.FavComic;
 import com.example.android.myxkcdcomics.database.dao.FavComicsDao;
 
@@ -20,14 +19,13 @@ public class FavComicsRepository {
     // source: https://stackoverflow.com/a/11640026/8132331
     private static volatile FavComicsRepository INSTANCE;
 
-    private FavComicsDao favComicsDao;
+    private final FavComicsDao favComicsDao;
     private final AppExecutors executors;
 
 
     private FavComicsRepository(FavComicsDao comicsDao, AppExecutors executors) {
         this.favComicsDao = comicsDao;
         this.executors = executors;
-        //this.favComicsDao = comicsDb.favComicsDao();
     }
 
     public static FavComicsRepository getInstance(FavComicsDao comicsDao,

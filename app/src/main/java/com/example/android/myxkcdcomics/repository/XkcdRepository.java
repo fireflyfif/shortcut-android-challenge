@@ -1,15 +1,24 @@
 package com.example.android.myxkcdcomics.repository;
 
 import android.app.Application;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.paging.DataSource;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.android.myxkcdcomics.AppExecutors;
+import com.example.android.myxkcdcomics.XkcdApplication;
 import com.example.android.myxkcdcomics.callbacks.ResultFromCallback;
 import com.example.android.myxkcdcomics.database.ComicsDatabase;
 import com.example.android.myxkcdcomics.database.FavComic;
 import com.example.android.myxkcdcomics.database.dao.FavComicsDao;
+import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /*
 Repository pattern that is a Singleton class.
@@ -28,18 +37,19 @@ public class XkcdRepository {
 
 
     // Private constructor
-    // TODO: Remove the Application from the scope of the Repository
-    private XkcdRepository(Application application) {
-        //ComicsDatabase comicsDatabase = ComicsDatabase.getInstance(application);
-        //favComicsDao = comicsDatabase.favComicsDao();
+    public XkcdRepository() {
+        if (INSTANCE != null) {
+            throw new RuntimeException("Use getInstance() method to get the single instance of " +
+                    "this class.");
+        }
     }
 
-    public static XkcdRepository getInstance(Application application) {
+    public static XkcdRepository getInstance() {
         if (INSTANCE == null) {
             // If there is no instance available, create a new one
             synchronized (XkcdRepository.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new XkcdRepository(application);
+                    INSTANCE = new XkcdRepository();
                 }
             }
         }
@@ -47,5 +57,49 @@ public class XkcdRepository {
         return INSTANCE;
     }
 
+    /*
+    Methods only for unit testing purpose!
+     */
 
+    /**
+     * Getter method that gets the loaded comic data
+     *
+     * @return the loaded comic data from the XKCD API
+     */
+    public LiveData<CurrentXkcdComic> getCurrentComics() {
+        return loadCurrentComics();
+    }
+
+    /**
+     * Method that loads the current comics from the XKCD API
+     *
+     * @return the Mutable data of the current comics
+     */
+    private LiveData<CurrentXkcdComic> loadCurrentComics() {
+        final MutableLiveData<CurrentXkcdComic> comicsData = new MutableLiveData<>();
+        XkcdApplication.getInstance().getXkcdApi().getCurrentComic().enqueue(new Callback<CurrentXkcdComic>() {
+            CurrentXkcdComic currentXkcdComics = new CurrentXkcdComic();
+
+            @Override
+            public void onResponse(@NonNull Call<CurrentXkcdComic> call, @NonNull Response<CurrentXkcdComic> response) {
+                if (response.isSuccessful()) {
+                    currentXkcdComics = response.body();
+                    if (currentXkcdComics != null) {
+                        // Set the value of the current comics
+                        comicsData.setValue(currentXkcdComics);
+                        Log.d(TAG, "Current comics loaded successfully!");
+                    } else {
+                        comicsData.setValue(null);
+                        Log.d(TAG, "Current comics NOT loaded successfully!");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CurrentXkcdComic> call, @NonNull Throwable t) {
+                Log.d(TAG, "OnFailure! " + t.getMessage());
+            }
+        });
+        return comicsData;
+    }
 }

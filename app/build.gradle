@@ -26,34 +26,34 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:design:28.0.0'
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    implementation "com.android.support:design:$supportLibVersion"
     // Retrofit and Gson dependencies
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
     // Logging Interceptor for Retrofit
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingInterceptorVersion"
     // OkHttp and Picasso downloader for caching images
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.jakewharton.picasso:picasso2-okhttp3-downloader:$picassoDownloaderVersion"
     // Lifecycle AAC dependencies
-    implementation 'android.arch.lifecycle:extensions:1.1.1'
-    implementation 'android.arch.lifecycle:viewmodel:1.1.1'
+    implementation "android.arch.lifecycle:extensions:$archVersion"
+    implementation "android.arch.lifecycle:viewmodel:$archVersion"
     // Paging library
-    implementation 'android.arch.paging:runtime:1.0.1'
+    implementation "android.arch.paging:runtime:$pagingVersion"
     // ButterKnife Dependency
-    implementation 'com.jakewharton:butterknife:9.0.0-rc1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+    implementation "com.jakewharton:butterknife:$butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     // Picasso Library
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
     // Bottom Navigation Library Dependency
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
 
     // Room Library Dependencies
-    implementation 'android.arch.persistence.room:runtime:1.1.1'
-    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+    implementation "android.arch.persistence.room:runtime:$archVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$archVersion"
 
     // Mockito dependency
     testImplementation 'org.mockito:mockito-core:2.23.0'

@@ -33,7 +33,6 @@ public class XkcdRepository {
     private static volatile XkcdRepository INSTANCE;
 
     private static final String TAG = XkcdRepository.class.getSimpleName();
-    private FavComicsDao favComicsDao;
 
 
     // Private constructor

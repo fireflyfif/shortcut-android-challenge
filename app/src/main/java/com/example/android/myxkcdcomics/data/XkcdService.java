@@ -5,7 +5,6 @@ import com.example.android.myxkcdcomics.model.CurrentXkcdComic;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Url;
 
 public interface XkcdService {
 

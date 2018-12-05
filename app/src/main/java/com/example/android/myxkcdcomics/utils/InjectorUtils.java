@@ -14,7 +14,7 @@ import com.example.android.myxkcdcomics.viewmodel.FavViewModelFactory;
  */
 public class InjectorUtils {
 
-    public static FavComicsRepository provideRepository(Context context) {
+    private static FavComicsRepository provideRepository(Context context) {
         ComicsDatabase database = ComicsDatabase.getInstance(context);
         AppExecutors executors = AppExecutors.getInstance();
 

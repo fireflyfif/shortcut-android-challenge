@@ -38,4 +38,9 @@ ext {
     picassoDownloaderVersion = "1.1.0"
     butterknifeVersion = "9.0.0-rc1"
     archVersion = "1.1.1"
+
+    mockitoVersion = "2.23.0"
+    testRunnerVersion = "1.0.2"
+    espressoVersion = "3.0.2"
+    junitVersion = "4.12"
 }

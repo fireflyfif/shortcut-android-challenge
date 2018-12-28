@@ -2,9 +2,10 @@
     <string name="app_name">My XKCD Comics</string>
     <string name="slash_sign">/</string>
     <string name="empty_msg">No favorite items found. \nAdd your favorite XKCD comic!</string>
-    <string name="fab_contentDecription">Add to favorites button</string>
+    <string name="fab_contentDescription">Add to favorites button</string>
     <string name="delete_all">Delete All</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="error_message">Error message</string>
+    <string name="comic_image_content_description">Comic image</string>
 </resources>

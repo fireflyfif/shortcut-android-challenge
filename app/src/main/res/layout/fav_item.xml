@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/fa_card_margin"
-    android:layout_marginLeft="@dimen/fa_card_margin"
+    android:layout_marginStart="@dimen/fav_card_margin"
+    android:layout_marginLeft="@dimen/fav_card_margin"
     android:layout_marginTop="@dimen/margin_6dp"
-    android:layout_marginEnd="@dimen/fa_card_margin"
-    android:layout_marginRight="@dimen/fa_card_margin"
+    android:layout_marginEnd="@dimen/fav_card_margin"
+    android:layout_marginRight="@dimen/fav_card_margin"
     android:layout_marginBottom="@dimen/margin_6dp"
     app:cardBackgroundColor="@color/colorBackground"
     app:cardCornerRadius="@dimen/card_radius"
@@ -28,13 +28,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:contentDescription="@string/comic_image_content_description" />
 
         <View
             android:id="@+id/accent_bg"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="@dimen/yellow_background_height"
+            android:layout_marginTop="@dimen/margin_8dp"
             android:background="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

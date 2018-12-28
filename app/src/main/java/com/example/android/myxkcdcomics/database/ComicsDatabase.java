@@ -8,7 +8,10 @@ import android.content.Context;
 import com.example.android.myxkcdcomics.database.dao.FavComicsDao;
 
 // Helper tutorial: https://medium.com/@ajaysaini.official/building-database-with-room-persistence-library-ecf7d0b8f3e9
-@Database(entities = {FavComic.class}, version = 1, exportSchema = false)
+@Database(
+        entities = {FavComic.class},
+        version = 1,
+        exportSchema = false)
 public abstract class ComicsDatabase extends RoomDatabase {
 
     private static ComicsDatabase INSTANCE;

@@ -13,7 +13,7 @@ public class FavComicsRepository {
 
     private static final String TAG = FavComicsRepository.class.getSimpleName();
 
-    // Make the variable variable, so that memory barrier is inserted
+    // Make the variable volatile, so that memory barrier is inserted
     // All writes initiated prior to that of INSTANCE will be completed before
     // the INSTANCE is modified
     // source: https://stackoverflow.com/a/11640026/8132331

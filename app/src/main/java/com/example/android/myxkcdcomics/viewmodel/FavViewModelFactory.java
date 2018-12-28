@@ -9,6 +9,7 @@ import com.example.android.myxkcdcomics.ui.DetailComicViewModel;
 import com.example.android.myxkcdcomics.ui.favfragment.FavViewModel;
 
 public class FavViewModelFactory implements ViewModelProvider.Factory {
+
     private final FavComicsRepository repository;
 
     public FavViewModelFactory(FavComicsRepository repository) {

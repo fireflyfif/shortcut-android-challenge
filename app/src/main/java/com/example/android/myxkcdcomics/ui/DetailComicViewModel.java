@@ -1,16 +1,12 @@
 package com.example.android.myxkcdcomics.ui;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
-import android.view.View;
 
 import com.example.android.myxkcdcomics.callbacks.ResultFromCallback;
 import com.example.android.myxkcdcomics.database.FavComic;
 import com.example.android.myxkcdcomics.repository.FavComicsRepository;
-import com.example.android.myxkcdcomics.repository.XkcdRepository;
 
 public class DetailComicViewModel extends ViewModel {
 

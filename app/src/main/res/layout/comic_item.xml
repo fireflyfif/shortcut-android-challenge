@@ -31,8 +31,8 @@
         <View
             android:id="@+id/accent_bg"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="@dimen/yellow_background_height"
+            android:layout_marginTop="@dimen/margin_8dp"
             android:background="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -134,7 +134,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/accent_bg"
             app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:contentDescription="@string/comic_image_content_description" />
 
     </android.support.constraint.ConstraintLayout>
 
